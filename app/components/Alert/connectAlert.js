@@ -4,23 +4,24 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
+import {AlertContext} from './AlertProvider';
+
 const connectAlert = (WrappedComponent) => {
   class ConnectedAlert extends Component {
     render() {
       return (
-        <WrappedComponent
-          {...this.props}
-          alertWithType={this.context.alertWithType}
-          alert={this.context.alert}
-        />
+        <AlertContext.Consumer>
+        {
+          (context) => <WrappedComponent
+            {...this.props}
+            alertWithType={context.alertWithType}
+            alert={context.alert}
+          />
+        }
+        </AlertContext.Consumer>
       );
     }
   }
-
-  ConnectedAlert.contextTypes = {
-    alertWithType: PropTypes.func,
-    alert: PropTypes.func,
-  };
 
   return hoistNonReactStatic(ConnectedAlert, WrappedComponent);
 };

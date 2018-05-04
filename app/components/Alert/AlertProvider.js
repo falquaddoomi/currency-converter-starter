@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 
-import {AlertContext} from './index.js';
+// we're just making it empty by default since the children will check if they get what they're expecting
+export const AlertContext = React.createContext({});
 
 class AlertProvider extends Component {
   static propTypes = {
@@ -19,7 +20,7 @@ class AlertProvider extends Component {
         }>
           {React.Children.only(this.props.children)}
         </AlertContext.Provider>
-    
+
         <DropdownAlert
           ref={(ref) => {
             this.dropdown = ref;
